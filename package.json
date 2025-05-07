@@ -4,7 +4,7 @@
   "description": "Sample Node.js API with Firestore",
   "main": "app.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
