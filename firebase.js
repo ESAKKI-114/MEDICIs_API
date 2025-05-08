@@ -1,10 +1,11 @@
-// firebase.js (or db.js)
+// firebase.js
 const admin = require('firebase-admin');
-const serviceAccount = require('./serviceAccountKey.json'); // Path to your Firebase service account key file
+
+const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_KEY); // Read from environment variable
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
-const db = admin.firestore(); // Initialize Firestore instance
+const db = admin.firestore();
 module.exports = db;
