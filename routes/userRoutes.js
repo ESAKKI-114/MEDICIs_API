@@ -1,13 +1,27 @@
-// routes/userRoutes.js
-
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
+const { loginUser } = require('../controllers/auth'); // Login controller
+const verifyToken = require('../controllers/verifyToken'); // JWT middleware
 
-// Route to get all users
-router.get('/', userController.getAllUsers);
+// ✅ Login route
+router.post('/login', loginUser);
 
-// Route to create a new user
-router.post('/', userController.createUser);
+// ✅ Example protected route
+router.get('/profile', verifyToken, (req, res) => {
+  res.json({ message: 'Protected route accessed', user: req.user });
+});
+
+// ✅ Get all users
+router.get('/', verifyToken, userController.getAllUsers);
+
+// ✅ Create new user
+router.post('/',verifyToken,userController.createUser);
+
+// Update user by ID route (PUT)
+router.put('/:id',verifyToken, userController.updateUserById);
+
+// ✅ Get user by ID (must come last)
+router.get('/:id',verifyToken, userController.getUserById);
 
 module.exports = router;
